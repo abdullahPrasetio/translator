@@ -68,9 +68,9 @@ async function checkText(text) {
   let result = "";
   if (text.length > 0 || text != undefined) {
     if (text == "/start") {
-      result = `Silahkan Memulai Translate \n 
-      gunakan /trid 'kata/kalimat yang mau diterjemahkan' untuk trnslate dari bahasa indonesia ke bahasa inggris \n
-      gunakan /tren 'kata/kalimat yang mau diterjemahkan' untuk trnslate dari bahasa inggris ke bahasa indonesia`;
+      result = `Silahkan Memulai Translate 
+      gunakan /trid 'kata/kalimat yang mau diterjemahkan' untuk translate dari bahasa indonesia ke bahasa inggris 
+      gunakan /tren 'kata/kalimat yang mau diterjemahkan' untuk translate dari bahasa inggris ke bahasa indonesia`;
     }
     if (text == "/trid") {
       result =
@@ -98,8 +98,8 @@ async function checkText(text) {
     if (textReqEn.length > 1) {
       try {
         const res = await translate(textReqEn[1], {
-          to: "en",
-          from: "id",
+          to: "id",
+          from: "en",
           client: "gtx",
         })
           .then((resul) => {
