@@ -9,7 +9,6 @@ const translate = require("@vitalets/google-translate-api");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const axios = require("axios");
-const { count } = require("console");
 const { TOKEN, SERVER_URL } = process.env;
 const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`;
 const URI = `/webhook/${TOKEN}`;
@@ -30,7 +29,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 app.post(URI, async (req, res) => {
-  console.log(req.body);
   if (req.body.message) {
     const chatId = req.body.message.chat.id;
     let text = "";
@@ -69,14 +67,37 @@ app.listen(process.env.PORT || 3000, async () => {
 async function checkText(text) {
   let result = "";
   if (text.length > 0 || text != undefined) {
-    if (text == "/tr") {
-      result =
-        "Apa yang mau diterjemahkan? \n gunakan /tr 'kata/kalimat yang mau diterjemahkan'";
+    if (text == "/start") {
+      result = `Silahkan Memulai Translate \n 
+      gunakan /trid 'kata/kalimat yang mau diterjemahkan' untuk trnslate dari bahasa indonesia ke bahasa inggris \n
+      gunakan /tren 'kata/kalimat yang mau diterjemahkan' untuk trnslate dari bahasa inggris ke bahasa indonesia`;
     }
-    const textReq = text.split("/tr ");
-    if (textReq.length > 1) {
+    if (text == "/trid") {
+      result =
+        "Apa yang mau diterjemahkan ke bahasa indonesia? \n gunakan /trid 'kata/kalimat yang mau diterjemahkan'";
+    }
+    const textReqId = text.split("/trid ");
+    if (textReqId.length > 1) {
       try {
-        const res = await translate(textReq[1], {
+        const res = await translate(textReqId[1], {
+          to: "en",
+          from: "id",
+          client: "gtx",
+        })
+          .then((resul) => {
+            result = resul.raw[1][0][0][5][0][4][0][0];
+          })
+          .catch((err) => {
+            console.log("err", err);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    const textReqEn = text.split("/tren ");
+    if (textReqEn.length > 1) {
+      try {
+        const res = await translate(textReqEn[1], {
           to: "en",
           from: "id",
           client: "gtx",
