@@ -68,13 +68,11 @@ async function checkText(text) {
   let result = "";
   if (text.length > 0 || text != undefined) {
     if (text == "/start") {
-      result = `Silahkan Memulai Translate 
-      gunakan /trid 'kata/kalimat yang mau diterjemahkan' untuk translate dari bahasa indonesia ke bahasa inggris 
-      gunakan /tren 'kata/kalimat yang mau diterjemahkan' untuk translate dari bahasa inggris ke bahasa indonesia`;
+      result = `Silahkan Memulai Translate\n\ngunakan /trid 'kata/kalimat yang mau diterjemahkan' untuk translate dari bahasa indonesia ke bahasa inggris\n\ngunakan /tren 'kata/kalimat yang mau diterjemahkan' untuk translate dari bahasa inggris ke bahasa indonesia`;
     }
     if (text == "/trid") {
       result =
-        "Apa yang mau diterjemahkan ke bahasa indonesia? \n gunakan /trid 'kata/kalimat yang mau diterjemahkan'";
+        "Apa yang mau diterjemahkan ke bahasa indonesia? \n\n gunakan /trid 'kata/kalimat yang mau diterjemahkan'";
     }
     const textReqId = text.split("/trid ");
     if (textReqId.length > 1) {
